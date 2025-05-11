@@ -1,8 +1,11 @@
-let titulo = document.querySelector("h1");
-titulo.innerHTML = "Jogo do número secreto";
+function exibirTextoNaTela(tag, texto){
+    let campoTexto = document.querySelector(tag);
+    campoTexto.innerHTML = texto;
+}
 
-let paragrafo = document.querySelector("p");
-paragrafo.innerHTML = "Tente adivinhar o número secreto entre 1 e 10.";
+exibirTextoNaTela("h1", "Jogo do número secreto");
+
+exibirTextoNaTela("p", "Tente adivinhar o número secreto entre 1 e 10.");
 
 function verificarChute(){
     
