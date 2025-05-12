@@ -22,26 +22,29 @@ function verificarChute() {
 
   if (chute < numeroSecreto) {
     exibirTextoNaTela("h1", "Errou! O número secreto é maior.");
-    tentativas++;
   } else if (chute > numeroSecreto) {
     exibirTextoNaTela("h1", "Errou! O número secreto é menor.");
-    tentativas++;
   } else if (chute == numeroSecreto) {
     exibirTextoNaTela("h1", "Parábens!");
     let mensagemTentativas = tentativas == 1 ? "tentativa" : "tentativas";
     exibirTextoNaTela(
       "p",
       `Voce acertou em ${tentativas} ${mensagemTentativas}.`
-    );  
-    document.querySelector("#reiniciar").disabled = false;
-    document.querySelector("#chutar").disabled = true;
+    );
+    document.getElementById("reiniciar").removeAttribute("disabled");
   } else {
     exibirTextoNaTela("h1", "Valor inválido!");
   }
+  tentativas++;
+  limparCampo();
+}
 
+function limparCampo() {
+  chute = document.querySelector("input");
+  chute.value = "";
 }
 
 function novoJogo() {
-  localStorage.clear();
   window.location.reload();
+  document.getElementById("reiniciar").setAttribute("disabled", true);
 }
