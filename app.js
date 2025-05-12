@@ -1,6 +1,17 @@
+let listaDeNumerosSorteados = [];
+let numeroLimite = 10;
+
 function exibirTextoNaTela(tag, texto) {
   let campoTexto = document.querySelector(tag);
   campoTexto.innerHTML = texto;
+  if ("speechSynthesis" in window) {
+    let utterance = new SpeechSynthesisUtterance(texto);
+    utterance.lang = "pt-BR";
+    utterance.rate = 1.2;
+    window.speechSynthesis.speak(utterance);
+  } else {
+    console.log("Web Speech API não suportada neste navegador.");
+  }
 }
 
 exibirTextoNaTela("h1", "Jogo do número secreto");
@@ -11,7 +22,18 @@ exibirTextoNaTela(
 );
 
 function gerarNumeroAleatorio() {
-  return Math.floor(Math.random() * 10 + 1);
+  let numeroEscolhido = Math.floor(Math.random() * numeroLimite + 1);
+  let quantidadeDeElementos = listaDeNumerosSorteados.length;
+
+  if (quantidadeDeElementos == numeroLimite) {
+    listaDeNumerosSorteados = [];
+  }
+  if (listaDeNumerosSorteados.includes(numeroEscolhido)) {
+    return gerarNumeroAleatorio();
+  } else {
+    listaDeNumerosSorteados.push(numeroEscolhido);
+    return numeroEscolhido;
+  }
 }
 
 let numeroSecreto = gerarNumeroAleatorio();
@@ -33,7 +55,6 @@ function verificarChute() {
     );
     document.getElementById("reiniciar").removeAttribute("disabled");
     document.getElementById("chutar").setAttribute("disabled", true);
-
   } else {
     exibirTextoNaTela("h1", "Valor inválido!");
   }
