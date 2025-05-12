@@ -32,6 +32,8 @@ function verificarChute() {
       `Voce acertou em ${tentativas} ${mensagemTentativas}.`
     );
     document.getElementById("reiniciar").removeAttribute("disabled");
+    document.getElementById("chutar").setAttribute("disabled", true);
+
   } else {
     exibirTextoNaTela("h1", "Valor inválido!");
   }
